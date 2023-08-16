@@ -305,13 +305,13 @@
             value="Send message"
           />
           <p class="message-sent--success" v-if="form.sent && form.sentSuccess">
-            Ihre Nachricht wurde erfolgreich abgeschickt!
+            Your message has been sent!
           </p>
           <p
             class="message-sent--failure"
             v-if="form.sent && !form.sentSuccess"
           >
-            Es ist ein Fehler aufgetreten. Versuchen Sie es später noch einmal.
+            Something went wrong. Try again later.
           </p>
         </form>
       </div>
@@ -387,9 +387,23 @@ export default {
         this.form.email.errorMessage = "This field is required";
       } else if (!EmailValidator.validate(this.form.email.input)) {
         this.form.email.error = true;
-        this.form.email.errorMessage = "Sorry, invalid format here"; // Die E-Mail-Adresse ist valide.
+        this.form.email.errorMessage = "Sorry, invalid format"; // Die E-Mail-Adresse ist valide.
       } else {
         this.form.email.error = false;
+      }
+    },
+    "form.name.input"() {
+      if (!this.form.name.input.length) {
+        this.form.name.error = true;
+      } else {
+        this.form.name.error = false;
+      }
+    },
+    "form.message.name"() {
+      if (!this.form.message.input.length) {
+        this.form.message.error = true;
+      } else {
+        this.form.message.error = false;
       }
     },
   },
@@ -430,9 +444,17 @@ export default {
         const result = await response.json();
         if (result.success) {
           this.form.name.input = "";
+          this.form.name.error = false;
           this.form.email.input = "";
+          this.form.email.error = false;
           this.form.message.input = "";
+          this.form.message.error = false;
           this.form.sentSuccess = true;
+          this.$nextTick(() => {
+            this.form.name.error = false;
+            this.form.email.error = false;
+            this.form.message.error = false;
+          });
         } else {
           this.form.sentSuccess = false;
         }
@@ -859,7 +881,6 @@ body {
     font-weight: 500;
     padding-left: 24px;
     font-size: 16px;
-    text-transform: uppercase;
     margin-bottom: 32px;
     box-sizing: border-box;
 
