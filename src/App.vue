@@ -80,8 +80,8 @@
         </h1>
 
         <p class="intro__text">
-          Based in the Dresden, Germany, I'm a front-end developer passionate
-          about building accessible web apps that users love.
+          Based in Dresden, Germany, I'm a front-end developer passionate about
+          building web apps that users love.
         </p>
 
         <a class="link-button" href="#contact-container"> Contact me </a>
